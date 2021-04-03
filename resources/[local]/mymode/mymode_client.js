@@ -1,23 +1,27 @@
 const spawnPos = [266.4990234375, 6631, 29.55451011657715];
 
-RegisterCommand("clear", function(){
-    RemoveAllPedWeapons(GetPlayerPed(-1), true)
-    notify("~r~Cleared All Weapons")
-})
 
+on('onClientGameTypeStart', () => {
+  exports.spawnmanager.setAutoSpawnCallback(() => {
+    exports.spawnmanager.spawnPlayer({
+      x: spawnPos[0],
+      y: spawnPos[1],
+      z: spawnPos[2],
+      model: 'a_m_m_skater_01'
+    }, () => {
+      emit('chat:addMessage', {
+        args: [
+          'Welcome to the city!~'
+        ]
+      })
+    });
+  });
 
-let cars = ["adder", "comet", "cheetah", "faggio"]
+  exports.spawnmanager.setAutoSpawn(true)
+  exports.spawnmanager.forceRespawn()
+ 
+});
 
-RegisterCommand("car", function(){
-    let car = (cars[Math.random(cars.length)])
-    spawnCar(car)
-    notify("~p~Spawned car: ~h~~g~" + car)
-})
-
-RegisterCommand("die", function(){
-    SetEntityHealth(PlayerPedId(), 0)
-    notify("~r~ You Died.")
-})
 
 RegisterCommand('cords', function(){
     let cords = GetEntityCoords(GetPlayerPed(-1), false)
@@ -44,26 +48,4 @@ RegisterCommand('tp', async(cords) => {
   exports.spawnmanager.setAutoSpawn(true)
   exports.spawnmanager.forceRespawn()
 })
-
-on('onClientGameTypeStart', () => {
-  exports.spawnmanager.setAutoSpawnCallback(() => {
-    exports.spawnmanager.spawnPlayer({
-      x: spawnPos[0],
-      y: spawnPos[1],
-      z: spawnPos[2],
-      model: 'a_m_m_skater_01'
-    }, () => {
-      emit('chat:addMessage', {
-        args: [
-          'Welcome to the city!~'
-        ]
-      })
-    });
-  });
-
-  exports.spawnmanager.setAutoSpawn(true)
-  exports.spawnmanager.forceRespawn()
- 
-});
-
 
