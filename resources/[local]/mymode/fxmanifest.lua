@@ -8,6 +8,8 @@ version '1.0.0'
 resource_type 'gametype' { name = 'My awesome game type!' }
 
 client_scripts {
+    'spawnCar.lua',
     'functions.js',
-    'mymode_client.js'
+    'mymode_client.js',
+   
 }
