@@ -22,22 +22,6 @@ on('onClientGameTypeStart', () => {
  
 });
 
-RegisterCommand('tp', async([cords]) => {
-  exports.spawnmanager.setAutoSpawnCallback(() => {
-    exports.spawnmanager.spawnPlayer({
-      x: cords[0],
-      y: cords[1],
-      z: cords[2],
-      model: 'a_m_m_skater_01'
-    }, () => {
-      
-    });
-  });
-
-  exports.spawnmanager.setAutoSpawn(true)
-  exports.spawnmanager.forceRespawn()
-})
-
 RegisterCommand("die", function(){
     SetEntityHealth(PlayerPedId(), 0)
     notify("~r~ You Died.")

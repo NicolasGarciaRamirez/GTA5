@@ -1,14 +1,12 @@
 
 RegisterCommand("car", function(source, args, rawComand)
     print(rawComand, args, source)
-    local cont = 0
     for car in string.gmatch(rawComand, "[^%s]+") do
         spawnCar(car)
     end
 end)
 
 function spawnCar(car)
-    print(car)
     local carHash = GetHashKey(car)
 
     local model = RequestModel(carHash)

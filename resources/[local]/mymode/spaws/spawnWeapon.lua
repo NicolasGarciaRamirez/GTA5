@@ -1,17 +1,17 @@
 RegisterCommand("weapon", function(source, args, rawComand)
     print(rawComand, args, source)
     local cont = 0
-    for car in string.gmatch(rawComand, "[^%s]+") do
-        spawnWeapon(car)
+    for weapon in string.gmatch(rawComand, "[^%s]+") do
+        spawnWeapon(weapon)
     end
 end)
 
 function spawnWeapon(weapon)
     local weaponHash = GetHashKey(weapon)
+    fiveWeapon(weaponHash)
+    local model = RequestModel(weaponHash)
 
-    local model = RequestModel(carHash)
     local playerPed = PlayerPedId()
-  
     local cords = GetEntityCoords(GetPlayerPed(-1), false)
     local playerX, playerY, playerZ = table.unpack(GetEntityCoords(playerPed))
     local playerH = GetEntityHeading(playerPed)
@@ -34,4 +34,15 @@ FormatCoord = function(coord)
 	end
 
 	return tonumber(string.format("%.2f", coord))
+end
+
+function giveWeapon(hash)
+    GiveWeaponToPed(GetPlayerPed(-1), GetHashKey(hash), 999, false, false)
+end
+
+
+function weaponComponent(weaponHash, component)
+    if (HasPedGotWeapon(GetPlayerPed(-1), GetHashKey(weaponHash), false) ) then 
+        GiveWeaponComponentToPed(GetPlayerPed(-1), GetHashKey(weaponHash), GetHashKey(component))
+    end
 end
